@@ -16,9 +16,12 @@ import javafx.scene.layout.VBox;
  * Font. This class represents the Font Ribbon Bar Component.
  */
 public class Font {
+    public static String font_family = "Verdana";
+    public static String font_size = "12";
+    public static boolean is_bold = false;
 
     private ToggleButton btnBold, btnItalics, btnUnderline, btnSuper, btnSub;
-    private Button btnEraser, btnIncreaseFontSize, btnDecreaseFontSize;
+    private Button btnIncreaseFontSize, btnDecreaseFontSize;
 
     private ChoiceBox cbxFontFamily, cbxFontSize;
     private VBox root;
@@ -149,11 +152,8 @@ public class Font {
                         int currValue = (int) nextValue;
 
                         String oldFont = cbxFontFamily.getItems().get(oldValue).toString();
-                        String newFont = cbxFontFamily.getItems().get(currValue).toString();
-                        System.out.printf("The original font selection was: %s\n",
-                                oldFont);
-                        System.out.printf("The current font selection is: %s\n",
-                                newFont);
+                        font_family = cbxFontFamily.getItems().get(currValue).toString();
+                        System.out.println("Selected font is: "+font_family);
                     }
 
                 });
@@ -188,11 +188,8 @@ public class Font {
                         int currValue = (int) nextValue;
 
                         String oldFont = cbxFontSize.getItems().get(oldValue).toString();
-                        String newFont = cbxFontSize.getItems().get(currValue).toString();
-                        System.out.printf("The original font size was: %s\n",
-                                oldFont);
-                        System.out.printf("The current font size is: %s\n",
-                                newFont);
+                        font_size = cbxFontSize.getItems().get(currValue).toString();
+                        System.out.println("Selected size is: "+font_size);
                     }
 
                 });
@@ -221,11 +218,9 @@ public class Font {
 
             @Override
             public void handle(Event event) {
-                if (btnBold.isSelected())
-                    System.out.println("Bold Style Selected.");
-                else
-                    System.out.println("Bold Style Deselected.");
-
+                if (btnBold.isSelected()) {
+                    is_bold = true;
+                }
             }
 
         });

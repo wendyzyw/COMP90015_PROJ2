@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -8,6 +10,9 @@ import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
+import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -16,14 +21,20 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import javafx.scene.Cursor;
-import java.io.File;
+import javafx.scene.text.Font;
 
+import java.io.File;
 
 import static sample.ChooseColor.current_color;
 import static sample.Draw.*;
+import static sample.Font.font_family;
+import static sample.Font.font_size;
+import static sample.Font.is_bold;
 import static sample.Shapes.*;
 
 public class Main extends Application {
@@ -90,7 +101,7 @@ public class Main extends Application {
                     public void handle(MouseEvent event) {
                         if (method == DRAW) {
                             graphicsContext.beginPath();
-                            graphicsContext.moveTo(event.getX(), event.getY());
+                            graphicsContext.moveTo(event.getX(),event.getY());
                             graphicsContext.stroke();
                         }
                     }
@@ -100,7 +111,7 @@ public class Main extends Application {
                     @Override
                     public void handle(MouseEvent event) {
                         if (method == DRAW) {
-                            graphicsContext.lineTo(event.getX(), event.getY());
+                            graphicsContext.lineTo(event.getX(),event.getY());
                             graphicsContext.stroke();
                         }
                     }
@@ -200,12 +211,9 @@ public class Main extends Application {
                new EventHandler<MouseEvent>() {
                    @Override
                    public void handle(MouseEvent event) {
-                       if (method == TEXT) {
+                       if (method == TEXT && ta == null) {
                            text_x = event.getX();
                            text_y = event.getY();
-                           text_pane = new Pane();
-                           text_pane.setPrefSize(canvas.getWidth(),canvas.getHeight());
-                           canvasStack.getChildren().add(text_pane);
                            ta = new TextArea();
                            ta.setBorder(null);
                            ta.setPrefColumnCount(20);
@@ -213,17 +221,28 @@ public class Main extends Application {
                            ta.setWrapText(true);
                            ta.setLayoutX(event.getX());
                            ta.setLayoutY(event.getY());
+                           text_pane = new Pane();
                            text_pane.getChildren().add(ta);
+                           text_pane.setPrefSize(canvas.getWidth(),canvas.getHeight());
+                           if (canvasStack.getChildren().size() < 3) {
+                               canvasStack.getChildren().add(text_pane);
+                           }
                            ta.addEventHandler(KeyEvent.KEY_PRESSED,
                                    new EventHandler<KeyEvent>() {
                                        @Override
                                        public void handle(KeyEvent event) {
                                            if (event.getCode().equals(KeyCode.ENTER)){
+                                               if (is_bold){
+                                                   graphicsContext.setFont(Font.font(font_family, FontWeight.BOLD, Double.parseDouble(font_size)));
+                                               } else {
+                                                   graphicsContext.setFont(new Font(font_family, Double.parseDouble(font_size)));
+                                               }
                                                graphicsContext.fillText(ta.getText(),text_x,text_y);
                                                canvasStack.getChildren().remove(text_pane);
                                                text_x = 0;
                                                text_y = 0;
                                                canvas.setCursor(Cursor.DEFAULT);
+                                               ta = null;
                                            }
                                        }
                                    });

@@ -1,18 +1,20 @@
 package sample;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.HBox;
 
+import static sample.Main.canvas_file;
+
 public class HomeTab{
     private Tab home_tab;
-    private String file_name;
-
 
     public HomeTab(){
-        Label tab_label = new Label(file_name);
-        home_tab = new Tab();
-        home_tab.setGraphic(tab_label);
+        home_tab = new Tab("Canvas");
         buildTab();
     }
 

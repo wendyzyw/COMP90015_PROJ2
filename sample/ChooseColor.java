@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -12,6 +11,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.awt.event.MouseEvent;
+import javafx.beans.value.ObservableValue;
 
 import static sample.Main.graphicsContext;
 
