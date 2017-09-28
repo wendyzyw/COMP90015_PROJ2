@@ -1,0 +1,32 @@
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<TabPane fx:controller="sample.RibbonBar"
+          xmlns:fx="http://javafx.com/fxml"
+          styleClass="root">
+    <Tab>
+        <HBox>
+            <children>
+                <VBox>
+                    <children>
+                        <GridPane>
+                            <Button>
+
+                            </Button>
+                            <VBox>
+                                <children>
+                                    <Label>
+
+                                    </Label>
+                                </children>
+                            </VBox>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </Tab>
+</TabPane>
