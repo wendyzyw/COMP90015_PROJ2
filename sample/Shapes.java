@@ -18,7 +18,7 @@ public class Shapes {
     private SplitMenuButton btnShape;
     private VBox root;
     public static int RECT = 5;
-    public static int TRI = 6;
+    public static int ROUND = 6;
     public static int CIRCLE = 7;
     public static int OVAL = 8;
 
@@ -72,15 +72,16 @@ public class Shapes {
             }
         });
 
-        String tri_path = "/sample/icons/tri.png";
-        Image tri_icon = new Image(this.getClass().getResourceAsStream(tri_path),24.0,24.0,true,true);
-        ImageView tri = new ImageView(tri_icon);
-        MenuItem item_tri = new MenuItem("Triangle",tri);
-        item_tri.setOnAction(new EventHandler<ActionEvent>() {
+        String roundrec_path = "/sample/icons/roundrec.png";
+        Image roundrec_icon = new Image(this.getClass().getResourceAsStream(roundrec_path),24.0,24.0,true,true);
+        ImageView roundrec = new ImageView(roundrec_icon);
+        MenuItem item_roundrec = new MenuItem("Round Rectangle",roundrec);
+        item_roundrec.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Main.method = TRI;
-                btnShape.setText("Triangle");
+                Main.method = ROUND;
+                btnShape.setText("Round Rectangle");
+                drawRoundrec(canvas,graphicsContext);
             }
         });
 
@@ -110,7 +111,7 @@ public class Shapes {
             }
         });
 
-        this.btnShape = new SplitMenuButton(item_rec,item_tri,item_circle,item_oval);
+        this.btnShape = new SplitMenuButton(item_rec,item_roundrec,item_circle,item_oval);
         this.btnShape.setText("Shape");
         this.btnShape.setContentDisplay(ContentDisplay.TOP);
 
